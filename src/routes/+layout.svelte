@@ -9,7 +9,6 @@
 	let { children } = $props();
 
 	function getPathname(): String {
-		console.log(page.url.pathname);
 		let path: string = page.url.pathname.replaceAll('/', '');
 		let name = path.replaceAll('sveltehub-scouting', '');
 		if (name.length > 0) {
