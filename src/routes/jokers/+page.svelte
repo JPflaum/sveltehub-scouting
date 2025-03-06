@@ -19,12 +19,10 @@
 	<AppSelect {games} bind:value />
 
 	<div>
-		<ScrollArea class="container mx-auto p-1" orientation="both">
-			{#if value === 'atRhinos'}
-				<AppTable.Root {columns} data={dataAtRhinos}></AppTable.Root>
-			{:else if value === 'vsRhinos'}
-				<AppTable.Root {columns} data={dataVsRhinos}></AppTable.Root>
-			{/if}
-		</ScrollArea>
+		{#if value === 'atRhinos'}
+			<AppTable.Root {columns} data={dataAtRhinos}></AppTable.Root>
+		{:else if value === 'vsRhinos'}
+			<AppTable.Root {columns} data={dataVsRhinos}></AppTable.Root>
+		{/if}
 	</div>
 </main>

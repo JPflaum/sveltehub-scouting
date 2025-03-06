@@ -1,6 +1,5 @@
 <script lang="ts">
 	import AppSelect from '$lib/components/app-select.svelte';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index';
 	import * as AppTable from '$lib/components/ui/app-table/index';
 	import { dataAtRhinos } from './atRhinos';
 	import { dataVsRhinos } from './vsRhinos';
@@ -19,12 +18,10 @@
 	<AppSelect {games} bind:value />
 
 	<div>
-		<ScrollArea class="container mx-auto p-1" orientation="both">
-			{#if value === 'atRhinos'}
-				<AppTable.Root {columns} data={dataAtRhinos}></AppTable.Root>
-			{:else if value === 'vsRhinos'}
-				<AppTable.Root {columns} data={dataVsRhinos}></AppTable.Root>
-			{/if}
-		</ScrollArea>
+		{#if value === 'atRhinos'}
+			<AppTable.Root {columns} data={dataAtRhinos}></AppTable.Root>
+		{:else if value === 'vsRhinos'}
+			<AppTable.Root {columns} data={dataVsRhinos}></AppTable.Root>
+		{/if}
 	</div>
 </main>

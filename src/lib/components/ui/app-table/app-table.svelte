@@ -1,4 +1,6 @@
 <script lang="ts" generics="TData, TValue">
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index';
+
 	import {
 		type ColumnDef,
 		type SortingState,
@@ -13,8 +15,6 @@
 
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 	import { Button } from '$lib/components/ui/button/index';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index';
-	import { onMount } from 'svelte';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -106,60 +106,62 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<div class="rounded-md border">
-		<Table.Root>
-			<Table.Header>
-				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-					<Table.Row>
-						{#each headerGroup.headers as header (header.id)}
-							<Table.Head>
-								{#if !header.isPlaceholder}
-									<div class="grid justify-items-center">
-										<FlexRender
-											content={header.column.columnDef.header}
-											context={header.getContext()}
-										/>
-										<DropdownMenu.Root>
-											<DropdownMenu.Trigger>
-												{#snippet child({ props })}
-													<Button {...props} variant="ghost" size="icon">f</Button>
-												{/snippet}
-											</DropdownMenu.Trigger>
-											<DropdownMenu.Content align="center">
-												<input
-													type="text"
-													value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
-													onchange={(e) => {
-														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-													}}
-													oninput={(e) => {
-														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-													}}
-												/>
-											</DropdownMenu.Content>
-										</DropdownMenu.Root>
-									</div>
-								{/if}
-							</Table.Head>
-						{/each}
-					</Table.Row>
-				{/each}
-			</Table.Header>
-			<Table.Body>
-				{#each table.getRowModel().rows as row (row.id)}
-					<Table.Row data-state={row.getIsSelected() && 'selected'}>
-						{#each row.getVisibleCells() as cell (cell.id)}
-							<Table.Cell>
-								<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
-							</Table.Cell>
-						{/each}
-					</Table.Row>
-				{:else}
-					<Table.Row>
-						<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
-					</Table.Row>
-				{/each}
-			</Table.Body>
-		</Table.Root>
-	</div>
+	<ScrollArea class="container mx-auto rounded-md border p-1 " orientation="both">
+		<div>
+			<Table.Root>
+				<Table.Header>
+					{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
+						<Table.Row>
+							{#each headerGroup.headers as header (header.id)}
+								<Table.Head>
+									{#if !header.isPlaceholder}
+										<div class="grid justify-items-center">
+											<FlexRender
+												content={header.column.columnDef.header}
+												context={header.getContext()}
+											/>
+											<DropdownMenu.Root>
+												<DropdownMenu.Trigger>
+													{#snippet child({ props })}
+														<Button {...props} variant="ghost" size="icon">f</Button>
+													{/snippet}
+												</DropdownMenu.Trigger>
+												<DropdownMenu.Content align="center">
+													<input
+														type="text"
+														value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
+														onchange={(e) => {
+															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+														}}
+														oninput={(e) => {
+															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+														}}
+													/>
+												</DropdownMenu.Content>
+											</DropdownMenu.Root>
+										</div>
+									{/if}
+								</Table.Head>
+							{/each}
+						</Table.Row>
+					{/each}
+				</Table.Header>
+				<Table.Body>
+					{#each table.getRowModel().rows as row (row.id)}
+						<Table.Row data-state={row.getIsSelected() && 'selected'}>
+							{#each row.getVisibleCells() as cell (cell.id)}
+								<Table.Cell>
+									<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+								</Table.Cell>
+							{/each}
+						</Table.Row>
+					{:else}
+						<Table.Row>
+							<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
+						</Table.Row>
+					{/each}
+				</Table.Body>
+			</Table.Root>
+		</div>
+	</ScrollArea>
 </div>
