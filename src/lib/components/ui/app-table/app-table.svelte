@@ -114,29 +114,31 @@
 						{#each headerGroup.headers as header (header.id)}
 							<Table.Head>
 								{#if !header.isPlaceholder}
-									<FlexRender
-										content={header.column.columnDef.header}
-										context={header.getContext()}
-									/>
-									<DropdownMenu.Root>
-										<DropdownMenu.Trigger>
-											{#snippet child({ props })}
-												<Button {...props} variant="ghost" size="icon" class="ml-auto">f</Button>
-											{/snippet}
-										</DropdownMenu.Trigger>
-										<DropdownMenu.Content align="center">
-											<input
-												type="text"
-												value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
-												onchange={(e) => {
-													table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-												}}
-												oninput={(e) => {
-													table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-												}}
-											/>
-										</DropdownMenu.Content>
-									</DropdownMenu.Root>
+									<div class="grid justify-items-center">
+										<FlexRender
+											content={header.column.columnDef.header}
+											context={header.getContext()}
+										/>
+										<DropdownMenu.Root>
+											<DropdownMenu.Trigger>
+												{#snippet child({ props })}
+													<Button {...props} variant="ghost" size="icon">f</Button>
+												{/snippet}
+											</DropdownMenu.Trigger>
+											<DropdownMenu.Content align="center">
+												<input
+													type="text"
+													value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
+													onchange={(e) => {
+														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+													}}
+													oninput={(e) => {
+														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+													}}
+												/>
+											</DropdownMenu.Content>
+										</DropdownMenu.Root>
+									</div>
 								{/if}
 							</Table.Head>
 						{/each}
