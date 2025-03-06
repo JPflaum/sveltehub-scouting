@@ -9,9 +9,10 @@
 	let { children } = $props();
 
 	function getPathname(): String {
-		let name: string = page.url.pathname.replaceAll('/', '');
+		console.log(page.url.pathname);
+		let path: string = page.url.pathname.replaceAll('/', '');
+		let name = path.replaceAll('sveltehub-scouting', '');
 		if (name.length > 0) {
-			name = name.replaceAll('sveltehub-scouting', '');
 			name = name[0].toUpperCase() + name.substring(1);
 		}
 		return name;
