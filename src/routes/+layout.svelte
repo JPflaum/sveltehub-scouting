@@ -11,6 +11,7 @@
 	function getPathname(): String {
 		let name: string = page.url.pathname.replaceAll('/', '');
 		if (name.length > 0) {
+			name = name.replaceAll('sveltehub-scouting', '');
 			name = name[0].toUpperCase() + name.substring(1);
 		}
 		return name;
@@ -23,6 +24,7 @@
 	<main class="m-1">
 		<Sidebar.Trigger />
 		<ModeSwitch />
+
 		{getPathname()}
 		{@render children()}
 	</main>
