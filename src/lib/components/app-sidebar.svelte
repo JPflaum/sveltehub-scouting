@@ -5,19 +5,19 @@
 	const items = [
 		{
 			title: 'Dragons',
-			url: { base } + '/dragons'
+			url: '/dragons'
 		},
 		{
 			title: 'Jokers',
-			url: { base } + '/jokers'
+			url: '/jokers'
 		},
 		{
 			title: 'Sharks',
-			url: { base } + '/sharks'
+			url: '/sharks'
 		},
 		{
 			title: 'Spiders',
-			url: { base } + '/spiders'
+			url: '/spiders'
 		}
 	];
 </script>
@@ -32,7 +32,7 @@
 						<Sidebar.MenuItem>
 							<Sidebar.MenuButton>
 								{#snippet child({ props })}
-									<a href={item.url} {...props}>
+									<a href="{base}{item.url}" {...props}>
 										<span>{item.title}</span>
 									</a>
 								{/snippet}
