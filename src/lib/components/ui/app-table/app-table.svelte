@@ -82,14 +82,14 @@
 </script>
 
 <div class="grid gap-2">
-	<div class="flex justify-end">
+	<div>
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
 					<Button {...props} variant="outline" class="ml-auto">Columns</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content align="end">
+			<DropdownMenu.Content align="start">
 				<ScrollArea class="h-72 w-36">
 					<div class="p-1">
 						{#each table.getAllColumns().filter((col) => col.getCanHide()) as column (column.id)}
