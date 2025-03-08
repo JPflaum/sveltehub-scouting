@@ -18,6 +18,8 @@
 	import ListFilter from 'lucide-svelte/icons/list-filter';
 	import ListFilterPlus from 'lucide-svelte/icons/list-filter-plus';
 
+	import { innerHeight } from 'svelte/reactivity/window';
+
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
 		data: TData[];
@@ -28,6 +30,8 @@
 	let columnVisibility = $state<VisibilityState>({});
 
 	let { data, columns }: DataTableProps<TData, TValue> = $props();
+
+	let height = (innerHeight.current ? innerHeight.current - 150 : 250) + 'px';
 
 	const table = createSvelteTable({
 		get data() {
@@ -97,11 +101,15 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<ScrollArea class="container rounded-md border p-1" orientation="both">
+	<ScrollArea
+		class="overflow-auto rounded-md border p-1"
+		style={{ height: height }}
+		orientation="both"
+	>
 		<Table.Root>
-			<Table.Header>
+			<Table.Header class="sticky top-0">
 				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-					<Table.Row>
+					<Table.Row class="sticky top-0">
 						{#each headerGroup.headers as header (header.id)}
 							<Table.Head>
 								{#if !header.isPlaceholder}
