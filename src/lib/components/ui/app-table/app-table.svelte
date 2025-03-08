@@ -102,14 +102,16 @@
 		</DropdownMenu.Root>
 	</div>
 	<ScrollArea
-		class="overflow-auto rounded-md border p-1"
+		class="relative overflow-auto rounded-md border p-1"
 		style={{ height: height }}
 		orientation="both"
 	>
 		<Table.Root>
-			<Table.Header class="sticky top-0">
+			<Table.Header
+				class="sticky top-0 bg-neutral-50 text-blue-600 dark:bg-neutral-950 dark:text-sky-400"
+			>
 				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-					<Table.Row class="sticky top-0">
+					<Table.Row>
 						{#each headerGroup.headers as header (header.id)}
 							<Table.Head>
 								{#if !header.isPlaceholder}
