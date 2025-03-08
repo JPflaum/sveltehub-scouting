@@ -15,7 +15,8 @@
 
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 	import { Button } from '$lib/components/ui/button/index';
-	import Filter from 'lucide-svelte/icons/filter';
+	import ListFilter from 'lucide-svelte/icons/list-filter';
+	import ListFilterPlus from 'lucide-svelte/icons/list-filter-plus';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -76,7 +77,7 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
-					<Button {...props} variant="outline" class="ml-auto">Columns</Button>
+					<Button {...props} variant="outline">Columns</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="start">
@@ -96,64 +97,68 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<ScrollArea class="container mx-auto rounded-md border p-1 " orientation="both">
-		<div>
-			<Table.Root>
-				<Table.Header>
-					{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-						<Table.Row>
-							{#each headerGroup.headers as header (header.id)}
-								<Table.Head>
-									{#if !header.isPlaceholder}
-										<div class="grid justify-items-center">
-											<FlexRender
-												content={header.column.columnDef.header}
-												context={header.getContext()}
-											/>
-											<DropdownMenu.Root>
-												<DropdownMenu.Trigger>
-													{#snippet child({ props })}
-														<Button {...props} variant="ghost" size="icon"><Filter /></Button>
-													{/snippet}
-												</DropdownMenu.Trigger>
-												<DropdownMenu.Content align="center">
-													<input
-														type="text"
-														placeholder="Filter..."
-														value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
-														onchange={(e) => {
-															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-														}}
-														oninput={(e) => {
-															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-														}}
-														class="p-1"
-													/>
-												</DropdownMenu.Content>
-											</DropdownMenu.Root>
-										</div>
-									{/if}
-								</Table.Head>
-							{/each}
-						</Table.Row>
-					{/each}
-				</Table.Header>
-				<Table.Body>
-					{#each table.getRowModel().rows as row (row.id)}
-						<Table.Row data-state={row.getIsSelected() && 'selected'}>
-							{#each row.getVisibleCells() as cell (cell.id)}
-								<Table.Cell>
-									<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
-								</Table.Cell>
-							{/each}
-						</Table.Row>
-					{:else}
-						<Table.Row>
-							<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
-						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</div>
+	<ScrollArea class="container rounded-md border p-1" orientation="both">
+		<Table.Root>
+			<Table.Header>
+				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
+					<Table.Row>
+						{#each headerGroup.headers as header (header.id)}
+							<Table.Head>
+								{#if !header.isPlaceholder}
+									<div class="grid justify-items-center">
+										<FlexRender
+											content={header.column.columnDef.header}
+											context={header.getContext()}
+										/>
+										<DropdownMenu.Root>
+											<DropdownMenu.Trigger>
+												{#snippet child({ props })}
+													<Button {...props} variant="ghost" size="icon">
+														{#if table.getColumn(header.id)?.getFilterValue()}
+															<ListFilterPlus />
+														{:else}
+															<ListFilter />
+														{/if}
+													</Button>
+												{/snippet}
+											</DropdownMenu.Trigger>
+											<DropdownMenu.Content align="center">
+												<input
+													type="text"
+													placeholder="Filter..."
+													value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
+													onchange={(e) => {
+														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+													}}
+													oninput={(e) => {
+														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+													}}
+													class="p-1"
+												/>
+											</DropdownMenu.Content>
+										</DropdownMenu.Root>
+									</div>
+								{/if}
+							</Table.Head>
+						{/each}
+					</Table.Row>
+				{/each}
+			</Table.Header>
+			<Table.Body>
+				{#each table.getRowModel().rows as row (row.id)}
+					<Table.Row data-state={row.getIsSelected() && 'selected'}>
+						{#each row.getVisibleCells() as cell (cell.id)}
+							<Table.Cell>
+								<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+							</Table.Cell>
+						{/each}
+					</Table.Row>
+				{:else}
+					<Table.Row>
+						<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
+					</Table.Row>
+				{/each}
+			</Table.Body>
+		</Table.Root>
 	</ScrollArea>
 </div>
