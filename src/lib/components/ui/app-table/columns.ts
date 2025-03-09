@@ -15,7 +15,7 @@ export const columns: ColumnDef<Row>[] = [
             }),
         cell: ({ row }) => {
             const amountHeaderSnippet = createRawSnippet(() => ({
-                render: () => `<div class="text-right">${row.getValue("pn")}</div>`,
+                render: () => `<div class="text-center">${row.getValue("pn")}</div>`,
             }));
 
             return renderSnippet(
@@ -32,6 +32,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'field position',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("fp")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'hs',
@@ -50,14 +60,35 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'down',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("do")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
-        accessorKey: 'di', header: ({ column }) =>
+        accessorKey: 'di',
+        header: ({ column }) =>
             renderComponent(AppTableButtonSort, {
                 text: 'di',
                 tooltip: 'distance',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
-            })
+            }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("di")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'frm',
@@ -85,6 +116,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'qb stance',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("qbs")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'qn',
@@ -94,6 +135,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'qb number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("qn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'lt',
@@ -103,6 +154,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'lt number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("lt")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'lg',
@@ -112,6 +173,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'lg number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("lg")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'ct',
@@ -121,6 +192,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'ct number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("ct")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'rg',
@@ -130,6 +211,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'rg number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("rg")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'rt',
@@ -139,6 +230,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'rt number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("rt")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'tn',
@@ -148,6 +249,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 't number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("tn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'xn',
@@ -157,6 +268,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'x number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("xn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'yn',
@@ -166,6 +287,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'y number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("yn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'hn',
@@ -175,6 +306,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'h number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("hn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'zn',
@@ -184,6 +325,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'z number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("zn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'mp',
@@ -193,6 +344,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'motion player',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("mp")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'mt',
@@ -211,6 +372,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'play type',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("pt")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'bs',

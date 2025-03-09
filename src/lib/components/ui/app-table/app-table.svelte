@@ -74,6 +74,8 @@
 			}
 		}
 	});
+
+	let onSel: boolean = false;
 </script>
 
 <div class="grid gap-2">
@@ -85,12 +87,13 @@
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="start">
-				<ScrollArea class="h-72 w-36">
+				<ScrollArea class="h-96 w-36">
 					<div class="p-1">
 						{#each table.getAllColumns().filter((col) => col.getCanHide()) as column (column.id)}
 							<div class="text-sm">
 								<DropdownMenu.CheckboxItem
 									bind:checked={() => column.getIsVisible(), (v) => column.toggleVisibility(!!v)}
+									closeOnSelect={onSel}
 								>
 									{column.id}
 								</DropdownMenu.CheckboxItem>
@@ -107,9 +110,7 @@
 		orientation="both"
 	>
 		<Table.Root>
-			<Table.Header
-				class="sticky top-0 bg-neutral-50 text-blue-600 dark:bg-neutral-950 dark:text-sky-400"
-			>
+			<Table.Header class="sticky top-0 bg-neutral-50 dark:bg-neutral-950">
 				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
 					<Table.Row>
 						{#each headerGroup.headers as header (header.id)}
