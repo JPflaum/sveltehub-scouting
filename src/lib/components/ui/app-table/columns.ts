@@ -51,6 +51,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'hashes',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("hs")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'do',
@@ -98,6 +108,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'formation',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("frm")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'str',
@@ -107,6 +127,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'strong side',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("str")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'qbs',
@@ -390,6 +420,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'bs',
                 tooltip: 'blocking scheme',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -399,6 +430,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'qa',
                 tooltip: 'qb action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -408,6 +440,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'ta',
                 tooltip: 't action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -417,6 +450,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'xa',
                 tooltip: 'x action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -425,6 +459,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'ya',
                 tooltip: 'y action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -433,6 +468,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'ha',
                 tooltip: 'h action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
@@ -441,6 +477,7 @@ export const columns: ColumnDef<Row>[] = [
                 text: 'za',
                 tooltip: 'z action',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+                class: 'w-16',
             }),
     },
     {
