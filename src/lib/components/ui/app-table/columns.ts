@@ -1,10 +1,42 @@
-import type { ColumnDef } from "@tanstack/table-core";
-import type { Row } from "$lib/types/types";
+import type { ColumnDef, Row } from "@tanstack/table-core";
+import type { MyRow } from "$lib/types/types";
 import { createRawSnippet } from "svelte";
 import { renderSnippet, renderComponent } from "$lib/components/ui/data-table/index";
 import AppTableButtonSort from '$lib/components/ui/app-table/app-table-button-sort.svelte';
 
-export const columns: ColumnDef<Row>[] = [
+function myMultiNumberFilter(row: Row<MyRow>, filterValue: string, cellId: string): boolean {
+    let filter: boolean = false;
+    let value: number = Number(row.getValue(cellId));
+    if (filterValue.includes(',')) {
+        let items: string[] = filterValue.split(',');
+        items.forEach((item) => {
+            if (value === Number(item.trim())) {
+                filter = true;
+            }
+        });
+    } else {
+        filter = value === Number(filterValue.trim());
+    }
+    return filter;
+}
+
+function myMultiTextFilter(row: Row<MyRow>, filterValue: string, cellId: string): boolean {
+    let filter: boolean = false;
+    let value: string = String(row.getValue(cellId)).trim();
+    if (filterValue.includes(',')) {
+        let items: string[] = filterValue.split(',');
+        items.forEach((item) => {
+            if (value.includes(item.trim())) {
+                filter = true;
+            }
+        });
+    } else {
+        filter = value.includes(filterValue.trim());
+    }
+    return filter;
+}
+
+export const columns: ColumnDef<MyRow>[] = [
     {
         accessorKey: 'pn',
         header: ({ column }) =>
@@ -22,7 +54,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'pn'),
     },
     {
         accessorKey: 'fp',
@@ -41,7 +75,27 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue: string): boolean => {
+            let filter: boolean = false;
+            let value: number = Number(row.original.fp.trim());
+            if (filterValue.includes('white')) {
+                filter = value < 80;
+            } else if (filterValue.includes('red')) {
+                filter = value > 79;
+            } else if (filterValue.includes(',')) {
+                let items: string[] = filterValue.split(',');
+                items.forEach(item => {
+                    if (value === Number(item.trim())) {
+                        filter = true;
+                    }
+                });
+            } else {
+                filter = value === Number(filterValue.trim());
+            }
+            return filter;
+        },
     },
     {
         accessorKey: 'hs',
@@ -60,7 +114,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'hs'),
     },
     {
         accessorKey: 'do',
@@ -79,7 +134,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'do'),
     },
     {
         accessorKey: 'di',
@@ -98,7 +155,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'di'),
     },
     {
         accessorKey: 'frm',
@@ -117,7 +176,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'frm'),
     },
     {
         accessorKey: 'str',
@@ -136,7 +196,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'str'),
     },
     {
         accessorKey: 'qbs',
@@ -155,7 +216,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'qbs'),
     },
     {
         accessorKey: 'qn',
@@ -174,7 +236,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'qn'),
     },
     {
         accessorKey: 'lt',
@@ -193,7 +257,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'lt'),
     },
     {
         accessorKey: 'lg',
@@ -212,7 +278,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'lg'),
     },
     {
         accessorKey: 'ct',
@@ -231,7 +299,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'ct'),
     },
     {
         accessorKey: 'rg',
@@ -250,7 +320,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'rg'),
     },
     {
         accessorKey: 'rt',
@@ -269,7 +341,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'rt'),
     },
     {
         accessorKey: 'tn',
@@ -288,7 +362,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'tn'),
     },
     {
         accessorKey: 'xn',
@@ -307,7 +383,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'xn'),
     },
     {
         accessorKey: 'yn',
@@ -326,7 +404,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'yn'),
     },
     {
         accessorKey: 'hn',
@@ -345,7 +425,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'hn'),
     },
     {
         accessorKey: 'zn',
@@ -364,7 +446,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'zn'),
     },
     {
         accessorKey: 'mp',
@@ -383,7 +467,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'mp'),
     },
     {
         accessorKey: 'mt',
@@ -393,6 +478,7 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'motion type',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'mt'),
     },
     {
         accessorKey: 'pt',
@@ -411,7 +497,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'pt'),
     },
     {
         accessorKey: 'bs',
@@ -422,6 +509,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'bs'),
     },
     {
         accessorKey: 'qa',
@@ -432,6 +520,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'qa'),
     },
     {
         accessorKey: 'ta',
@@ -442,6 +531,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'ta'),
     },
     {
         accessorKey: 'xa',
@@ -452,6 +542,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'xa'),
     },
     {
         accessorKey: 'ya', header: ({ column }) =>
@@ -461,6 +552,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'ya'),
     },
     {
         accessorKey: 'ha', header: ({ column }) =>
@@ -470,6 +562,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'ha'),
     },
     {
         accessorKey: 'za', header: ({ column }) =>
@@ -479,6 +572,7 @@ export const columns: ColumnDef<Row>[] = [
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
                 class: 'w-16',
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'za'),
     },
     {
         accessorKey: 'tt', header: ({ column }) =>
@@ -496,7 +590,8 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'tt'),
     },
     {
         accessorKey: 'rn', header: ({ column }) =>
@@ -514,7 +609,9 @@ export const columns: ColumnDef<Row>[] = [
                 amountHeaderSnippet,
                 ""
             );
-        }
+        },
+        sortingFn: "alphanumeric",
+        filterFn: (row, columnId, filterValue) => myMultiNumberFilter(row, filterValue, 'pn'),
     },
     {
         accessorKey: 'ctch', header: ({ column }) =>
@@ -523,6 +620,7 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'catched',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'ctch'),
     },
     {
         accessorKey: 'cmt', header: ({ column }) =>
@@ -531,5 +629,6 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'comment',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'cmt'),
     },
 ];

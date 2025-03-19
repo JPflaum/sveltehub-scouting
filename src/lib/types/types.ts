@@ -1,4 +1,4 @@
-export type Row = {
+export type MyRow = {
     pn: string,
     fp: string,
     hs: 'l' | 'm' | 'r',
