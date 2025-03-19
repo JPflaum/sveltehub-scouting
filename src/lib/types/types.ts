@@ -1,12 +1,12 @@
 export type Row = {
     pn: string,
     fp: string,
-    hs: 'left' | 'middle' | 'right',
+    hs: 'l' | 'm' | 'r',
     do: string,
     di: string,
     frm: string,
-    str: 'left' | 'right',
-    qbs: 'p' | 'uc',
+    str: '-' | 'l' | 'r',
+    qbs: '-' | 'p' | 'uc',
     qn: string,
     lt: string,
     lg: string,
@@ -28,7 +28,7 @@ export type Row = {
     | 'fly return'
     | 'orbit return'
     | 'exit return',
-    pt: 'p' | 'r',
+    pt: '-' | 'p' | 'r' | 's',
     bs: string,
     qa: string,
     ta: string,
