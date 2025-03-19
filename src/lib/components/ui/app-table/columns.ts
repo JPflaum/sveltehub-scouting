@@ -487,6 +487,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'target',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("tt")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'rn', header: ({ column }) =>
@@ -495,6 +505,16 @@ export const columns: ColumnDef<Row>[] = [
                 tooltip: 'receiver number',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-center">${row.getValue("rn")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        }
     },
     {
         accessorKey: 'ctch', header: ({ column }) =>
