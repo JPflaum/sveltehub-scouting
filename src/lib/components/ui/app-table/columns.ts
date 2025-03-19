@@ -80,9 +80,9 @@ export const columns: ColumnDef<MyRow>[] = [
         filterFn: (row, columnId, filterValue: string): boolean => {
             let filter: boolean = false;
             let value: number = Number(row.original.fp.trim());
-            if (filterValue.includes('white')) {
+            if (filterValue.toLowerCase().includes('white')) {
                 filter = value < 80;
-            } else if (filterValue.includes('red')) {
+            } else if (filterValue.toLowerCase().includes('red')) {
                 filter = value > 79;
             } else if (filterValue.includes(',')) {
                 let items: string[] = filterValue.split(',');
