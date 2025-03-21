@@ -33,6 +33,40 @@
 
 	let height = (innerHeight.current ? innerHeight.current - 150 : 250) + 'px';
 
+	let filterNamesHs: string[] = ['left', 'middle', 'right'];
+	let filterStatusHs: boolean[] = $state([false, false, false]);
+	let filterValuesHs: string[] = ['l', 'm', 'r'];
+	let filterNamesStr: string[] = ['left', 'right'];
+	let filterStatusStr: boolean[] = $state([false, false]);
+	let filterValuesStr: string[] = ['l', 'r'];
+	let filterNamesQbs: string[] = ['pistol', 'under center'];
+	let filterStatusQbs: boolean[] = $state([false, false]);
+	let filterValuesQbs: string[] = ['p', 'uc'];
+	let filterNamesPt: string[] = ['pass', 'run', 'special'];
+	let filterStatusPt: boolean[] = $state([false, false, false]);
+	let filterValuesPt: string[] = ['p', 'r', 's'];
+
+	function resetFilter(filters: boolean[]): string {
+		for (let i = 0; i < filters.length; i++) {
+			filters[i] = false;
+		}
+		return '';
+	}
+
+	function toggleFilter(index: number, filters: boolean[], values: string[]): string {
+		filters[index] = !filters[index];
+		let filter: string = '';
+		for (let i = 0; i < values.length; i++) {
+			if (filters[i]) {
+				filter += ',' + values[i];
+			}
+		}
+		if (filter.startsWith(',')) {
+			filter = filter.substring(1);
+		}
+		return filter;
+	}
+
 	const table = createSvelteTable({
 		get data() {
 			return data;
@@ -134,18 +168,124 @@
 												{/snippet}
 											</DropdownMenu.Trigger>
 											<DropdownMenu.Content align="center">
-												<input
-													type="text"
-													placeholder="Filter..."
-													value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
-													onchange={(e) => {
-														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-													}}
-													oninput={(e) => {
-														table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
-													}}
-													class="p-1"
-												/>
+												{#if header.id === 'hs'}
+													<div class="text-sm">
+														<DropdownMenu.Item
+															onSelect={() => {
+																table
+																	.getColumn(header.id)
+																	?.setFilterValue(resetFilter(filterStatusHs));
+															}}
+														>
+															reset
+														</DropdownMenu.Item>
+														{#each filterNamesHs as name, i}
+															<DropdownMenu.CheckboxItem
+																bind:checked={
+																	() => filterStatusHs[i],
+																	(v) =>
+																		table
+																			.getColumn(header.id)
+																			?.setFilterValue(
+																				toggleFilter(i, filterStatusHs, filterValuesHs)
+																			)
+																}
+																closeOnSelect={onSel}>{name}</DropdownMenu.CheckboxItem
+															>
+														{/each}
+													</div>
+												{:else if header.id === 'str'}
+													<div class="text-sm">
+														<DropdownMenu.Item
+															onSelect={() => {
+																table
+																	.getColumn(header.id)
+																	?.setFilterValue(resetFilter(filterStatusStr));
+															}}
+														>
+															reset
+														</DropdownMenu.Item>
+														{#each filterNamesStr as name, i}
+															<DropdownMenu.CheckboxItem
+																bind:checked={
+																	() => filterStatusStr[i],
+																	(v) =>
+																		table
+																			.getColumn(header.id)
+																			?.setFilterValue(
+																				toggleFilter(i, filterStatusStr, filterValuesStr)
+																			)
+																}
+																closeOnSelect={onSel}>{name}</DropdownMenu.CheckboxItem
+															>
+														{/each}
+													</div>
+												{:else if header.id === 'qbs'}
+													<div class="text-sm">
+														<DropdownMenu.Item
+															onSelect={() => {
+																table
+																	.getColumn(header.id)
+																	?.setFilterValue(resetFilter(filterStatusQbs));
+															}}
+														>
+															reset
+														</DropdownMenu.Item>
+														{#each filterNamesQbs as name, i}
+															<DropdownMenu.CheckboxItem
+																bind:checked={
+																	() => filterStatusQbs[i],
+																	(v) =>
+																		table
+																			.getColumn(header.id)
+																			?.setFilterValue(
+																				toggleFilter(i, filterStatusQbs, filterValuesQbs)
+																			)
+																}
+																closeOnSelect={onSel}>{name}</DropdownMenu.CheckboxItem
+															>
+														{/each}
+													</div>
+												{:else if header.id === 'pt'}
+													<div class="text-sm">
+														<DropdownMenu.Item
+															onSelect={() => {
+																table
+																	.getColumn(header.id)
+																	?.setFilterValue(resetFilter(filterStatusPt));
+															}}
+														>
+															reset
+														</DropdownMenu.Item>
+														{#each filterNamesPt as name, i}
+															<DropdownMenu.CheckboxItem
+																bind:checked={
+																	() => filterStatusPt[i],
+																	(v) =>
+																		table
+																			.getColumn(header.id)
+																			?.setFilterValue(
+																				toggleFilter(i, filterStatusPt, filterValuesPt)
+																			)
+																}
+																closeOnSelect={onSel}>{name}</DropdownMenu.CheckboxItem
+															>
+														{/each}
+													</div>
+												{:else}
+													<input
+														type="text"
+														placeholder="Filter..."
+														value={(table.getColumn(header.id)?.getFilterValue() as string) ?? ''}
+														onchange={(e) => {
+															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+														}}
+														oninput={(e) => {
+															table.getColumn(header.id)?.setFilterValue(e.currentTarget.value);
+														}}
+														class="p-1"
+													/>
+												{/if}
 											</DropdownMenu.Content>
 										</DropdownMenu.Root>
 									</div>
