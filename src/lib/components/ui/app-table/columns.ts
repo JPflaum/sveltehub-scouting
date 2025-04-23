@@ -629,6 +629,16 @@ export const columns: ColumnDef<MyRow>[] = [
                 tooltip: 'comment',
                 onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
             }),
+        cell: ({ row }) => {
+            const amountHeaderSnippet = createRawSnippet(() => ({
+                render: () => `<div class="text-left w-96">${row.getValue("cmt")}</div>`,
+            }));
+
+            return renderSnippet(
+                amountHeaderSnippet,
+                ""
+            );
+        },
         filterFn: (row, columnId, filterValue) => myMultiTextFilter(row, filterValue, 'cmt'),
     },
 ];
